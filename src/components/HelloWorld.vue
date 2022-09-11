@@ -2,7 +2,7 @@
   <NavBar />
   <div class="search__inputs">
     <div class="search">
-      <img src="@/assets/icons8-search.svg" alt="search__icon">
+      <!-- <img src="@/assets/icons8-search.svg" alt="search__icon"> -->
       <input type="text" placeholder="Search for country..." v-model="country">
     </div>
     <div class="select__menu">
@@ -162,6 +162,7 @@ import NavBar from './NavBar.vue';
     height: 400px;
     background-color: var(--container-bg-color);
     border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   }
 
   .flag__container img {
@@ -197,6 +198,18 @@ import NavBar from './NavBar.vue';
   .name {
     font-size: 18px;
     font-weight: 600;
+  }
+  @media screen and (max-width: 768px) {
+    .country__container{
+      max-width: 100%;
+    }
+    .search__inputs{
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding:20px;
+    }
   }
 
 </style>

@@ -36,10 +36,23 @@ export default {
     color: var(--text-color);
     padding: 20px;
   }
+  .title{
+    font-size: 20px;
+    margin-left: 25px;
+  }
   .theme {
     cursor: pointer;
   }
   .theme p {
     font-size: 13px;
+    margin-right: 30px;
+  }
+  @media screen and (max-width: 768px) {
+    .title{
+      margin-left: 2px;
+    }
+    .theme p{
+      margin-right: 0;
+    }
   }
 </style>

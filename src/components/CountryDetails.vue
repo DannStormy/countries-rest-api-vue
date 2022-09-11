@@ -194,6 +194,30 @@ import NavBar from './NavBar.vue';
     background-color: var(--container-bg-color);
     box-shadow: rgba(0, 0, 0, 0.35) 1.95px 1.95px 2.6px;    margin: 4px;
   }
+  @media screen and (max-width: 768px) {
+    .country__details, .middle{
+      flex-direction: column;
+    }
+    .country__details__container{
+      max-width: 100%;
+    }
+    .fg__container img{
+      padding: 25px;
+      width: 100%;
+      height: 300px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .middle{
+      padding-left: 25px;
+    }
+    .border__container{
+      flex-wrap: wrap;
+    }
+    .border__container b{
+      width: 100%;
+    }
+  }
 
   /* .right{
     width: 100%;
