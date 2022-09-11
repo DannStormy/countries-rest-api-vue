@@ -1,6 +1,7 @@
 <template>
+  <NavBar />
   <button @click="goBack">Back</button>
-  <LoadingCircle v-if="isLoading"/>
+  <LoadingCircle v-if="isLoading" />
   <div class="country__details__container" v-else>
     <div class="country__details" v-for="detail in countryDetails" :key="detail">
       <div class="left">
@@ -17,7 +18,7 @@
           </div>
           <div class="native__name__container">
             <p class="native__name">
-              <b>Native Name: </b> {{detail.name.nativeName.this}}
+              <b>Native Name: </b> {{Object.values(detail.name.nativeName)[0].common}}
             </p>
           </div>
           <div class="population__container">
@@ -48,7 +49,7 @@
           </div>
           <div class="currency_container">
             <p class="currency">
-              <b> Currencies: </b> {{detail.currencies.name}}
+              <b> Currencies: </b> {{Object.values(detail.currencies)[0].name}}
             </p>
           </div>
           <div class="languages__container">
@@ -70,46 +71,52 @@
 </template>
 <script>
   import router from '@/router';
-import {
+  import {
     mapActions,
     mapState
   } from 'vuex';
-import LoadingCircle from './LoadingCircle.vue';
+  import LoadingCircle from './LoadingCircle.vue';
+import NavBar from './NavBar.vue';
 
   export default {
     computed: {
-        ...mapState(["countryDetails", "isLoading"])
+      ...mapState(["countryDetails", "isLoading"])
     },
     mounted() {
-        const country = this.$route.params.country;
-        this.getCountryDetails(country);
+      const country = this.$route.params.country;
+      this.getCountryDetails(country);
     },
     methods: {
-        ...mapActions(["getCountryDetails"]),
-        goBack() {
-            router.back();
-        }
+      ...mapActions(["getCountryDetails"]),
+      goBack() {
+        router.back();
+      }
     },
-    components: { LoadingCircle }
+    components: {
+    LoadingCircle,
+    NavBar
 }
+  }
 </script>
 <style scoped>
-  button{
+  button {
     margin-top: 80px;
     margin-left: 45px;
     padding: 10px 30px;
-    background-color: hsl(209, 23%, 22%);
-    color: white;
+    background-color: var(--container-bg-color);
+    color: var(--text-color);
     border: none;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     cursor: pointer;
   }
+
   .country__details__container {
     width: 1350px;
     margin-left: auto;
     margin-right: auto;
-    color: white;
+    color: var(--container-bg-color);
     margin-top: 80px;
+    color: var(--text-color)
   }
 
   .fg__container img {
@@ -142,7 +149,8 @@ import LoadingCircle from './LoadingCircle.vue';
   .capital__container p {
     margin-right: 5px;
   }
-  b{
+
+  b {
     margin-right: 4px;
   }
 
@@ -158,6 +166,9 @@ import LoadingCircle from './LoadingCircle.vue';
   .middle {
     display: flex;
     flex-wrap: wrap;
+  }
+  .first > *, .second > * {
+    margin-bottom: 10px;
   }
 
   .first {
@@ -180,8 +191,8 @@ import LoadingCircle from './LoadingCircle.vue';
 
   .border {
     padding: 10px 20px;
-    background-color: hsl(209, 23%, 22%);
-    margin: 4px;
+    background-color: var(--container-bg-color);
+    box-shadow: rgba(0, 0, 0, 0.35) 1.95px 1.95px 2.6px;    margin: 4px;
   }
 
   /* .right{

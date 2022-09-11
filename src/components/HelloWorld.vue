@@ -1,4 +1,5 @@
 <template>
+  <NavBar />
   <div class="search__inputs">
     <div class="search">
       <img src="@/assets/icons8-search.svg" alt="search__icon">
@@ -55,11 +56,12 @@
     mapState
   } from 'vuex';
   import LoadingCircle from './LoadingCircle.vue';
+import NavBar from './NavBar.vue';
 
   export default {
     data: () => ({
       selected: "",
-      country: ""
+      country: "",
     }),
     name: "HelloWorld",
     methods: {
@@ -94,8 +96,9 @@
       // this.$router.replace({query : {country: "all"}})
     },
     components: {
-      LoadingCircle
-    }
+    LoadingCircle,
+    NavBar
+}
   }
 </script>
 
@@ -117,6 +120,9 @@
     display: flex;
     align-items: center;
   }
+  /* .search img > path{
+    fill: var(--text-color)
+  } */
   /* .search img{
     padding: 15px;
     background-color: hsl(209, 23%, 22%);
@@ -128,12 +134,12 @@
     border: none;
     outline: none;
     border-radius: 5px;
-    color: white;
-    background-color: hsl(209, 23%, 22%);
+    color: var(--text-color);
+    background-color: var(--container-bg-color);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
   ::placeholder{
-    color: white;
+    color: var(--text-color);
   }
   select{
     width: 200px;
@@ -148,13 +154,13 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 70px;
-    color: white;
+    color: var(--text-color);
   }
 
   .countries {
     width: 265px;
     height: 400px;
-    background-color: hsl(209, 23%, 22%);
+    background-color: var(--container-bg-color);
     border-radius: 5px;
   }
 
