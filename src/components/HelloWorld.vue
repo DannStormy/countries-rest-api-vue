@@ -13,7 +13,6 @@
         <option value="North America">North America</option>
         <option value="South America">South America</option>
         <option value="Asia">Asia</option>
-        <option value="Oceania">Oceania</option>
       </select>
     </div>
   </div>

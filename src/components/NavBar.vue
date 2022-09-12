@@ -1,8 +1,9 @@
 <template>
   <div>
     <nav>
-      <p class="title">Where in the world?</p>
+      <p class="title" @click="goHome">Where in the world?</p>
       <div class="theme" @click="isDark = !isDark">
+        <SvgIcon />
         <p>Dark Mode</p>
       </div>
     </nav>
@@ -10,19 +11,28 @@
   </div>
 </template>
 <script>
+import router from '@/router';
+import SvgIcon from './SvgIcon.vue';
 export default {
-  data: () => ({
-    isDark: false
-  }),
-  watch: {
-    isDark(value) {
-      if (value) {
-        this.body.classList.add('dark')
-      } else {
-        this.body.classList.remove('dark')
-      }
-    }
-  }
+    data: () => ({
+        isDark: false
+    }),
+    methods: {
+        goHome() {
+            router.push("/");
+        }
+    },
+    watch: {
+        isDark(value) {
+            if (value) {
+                this.body.classList.add("dark");
+            }
+            else {
+                this.body.classList.remove("dark");
+            }
+        }
+    },
+    components: { SvgIcon }
 }
 </script>
 <style scoped>
@@ -39,13 +49,27 @@ export default {
   .title{
     font-size: 20px;
     margin-left: 25px;
+    cursor: pointer;
+    -moz-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  .title:hover {
+    transform: scale(1.1);
   }
   .theme {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 135px;
   }
   .theme p {
     font-size: 13px;
     margin-right: 30px;
+  }
+  .theme img {
+    fill: red;
   }
   @media screen and (max-width: 768px) {
     .title{

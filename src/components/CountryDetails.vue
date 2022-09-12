@@ -1,9 +1,9 @@
 <template>
   <NavBar />
   <button @click="goBack">Back</button>
-  <!-- <div class="error" v-if="isError"><h1>Country details not found</h1></div> -->
+  <div class="error" v-if="isError && !isLoading"><h1>Country details not found</h1></div>
   <LoadingCircle v-if="isLoading" />
-  <div class="country__details__container" v-if="!isLoading">
+  <div class="country__details__container" v-if="!isLoading && !isError">
     <div class="country__details" v-for="detail in countryDetails" :key="detail">
       <div class="left">
         <div class="fg__container">
@@ -63,7 +63,7 @@
         <div class="third">
           <div class="border__container">
             <b>Border Countries: </b>
-            <p class="border" @click="checkCountryDetails(border)" v-for="border in detail.borders" :key="border">{{border}}</p>
+            <p class="border" @click="checkCountryDetails(border)" v-for="border in detail.borders" :key="border">{{border}} {{detail.alpha3Code}}</p>
           </div>
         </div>
       </div>
@@ -80,9 +80,6 @@
 import NavBar from './NavBar.vue';
 
   export default {
-    data: () => ({
-      currentCountry: null
-    }),
     computed: {
       ...mapState(["countryDetails", "isLoading", "isError"])
     },
@@ -92,7 +89,6 @@ import NavBar from './NavBar.vue';
       if (country){
         this.getCountryDetails(country);
       }
-      this.currentCountry = country
     },
     // updated(){
     //   const country = this.$route.params.country;
@@ -221,6 +217,7 @@ import NavBar from './NavBar.vue';
 
   .border__container {
     margin-top: 80px;
+    flex-wrap: wrap;
   }
 
   .border {
@@ -228,6 +225,17 @@ import NavBar from './NavBar.vue';
     background-color: var(--container-bg-color);
     box-shadow: rgba(0, 0, 0, 0.35) 1.95px 1.95px 2.6px;    margin: 4px;
     cursor: pointer;
+    -moz-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  .border:hover{
+    transform: scale(1.1);
+  }
+  .error{
+    width: 100%;
+    text-align: center;
+    margin-top: 150px;
   }
   @media screen and (max-width: 768px) {
     .country__details, .middle{

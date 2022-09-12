@@ -7,7 +7,7 @@ export default createStore({
     region: null,
     countryDetails: null,
     isLoading: false,
-    isError: false
+    isError: null
   },
   getters: {
   },
@@ -58,6 +58,7 @@ export default createStore({
         const data = response.data
         commit('SET_COUNTRIES', data)
       }catch(err){
+        commit('SET_ERROR', err.status)
         console.log(err)
       }finally{
         commit('SET_LOADING', false)
@@ -69,9 +70,10 @@ export default createStore({
         const response = await searchCountry(country)
         const data = response.data
         commit('SET_COUNTRY_DETAILS', data)
+        commit('SET_ERROR', null)
       } catch(err) {
-        commit('SET_ERROR', true)
-        console.log(err)
+        commit('SET_ERROR', err.message)
+        console.log(err.message)
       }finally{
         commit('SET_LOADING', false)
       }
