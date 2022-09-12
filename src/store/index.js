@@ -6,7 +6,8 @@ export default createStore({
     allCountries: [],
     region: null,
     countryDetails: null,
-    isLoading: false
+    isLoading: false,
+    isError: false
   },
   getters: {
   },
@@ -19,6 +20,9 @@ export default createStore({
     },
     SET_LOADING(state, isLoading){
       state.isLoading = isLoading
+    },
+    SET_ERROR(state, isError){
+      state.isError = isError
     }
   },
   actions: {
@@ -66,6 +70,7 @@ export default createStore({
         const data = response.data
         commit('SET_COUNTRY_DETAILS', data)
       } catch(err) {
+        commit('SET_ERROR', true)
         console.log(err)
       }finally{
         commit('SET_LOADING', false)

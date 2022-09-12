@@ -1,8 +1,9 @@
 <template>
   <NavBar />
   <button @click="goBack">Back</button>
+  <!-- <div class="error" v-if="isError"><h1>Country details not found</h1></div> -->
   <LoadingCircle v-if="isLoading" />
-  <div class="country__details__container" v-else>
+  <div class="country__details__container" v-if="!isLoading">
     <div class="country__details" v-for="detail in countryDetails" :key="detail">
       <div class="left">
         <div class="fg__container">
@@ -62,7 +63,7 @@
         <div class="third">
           <div class="border__container">
             <b>Border Countries: </b>
-            <p class="border" v-for="border in detail.borders" :key="border">{{border}}</p>
+            <p class="border" @click="checkCountryDetails(border)" v-for="border in detail.borders" :key="border">{{border}}</p>
           </div>
         </div>
       </div>
@@ -79,17 +80,50 @@
 import NavBar from './NavBar.vue';
 
   export default {
+    data: () => ({
+      currentCountry: null
+    }),
     computed: {
-      ...mapState(["countryDetails", "isLoading"])
+      ...mapState(["countryDetails", "isLoading", "isError"])
     },
     mounted() {
+      console.log("Mounting")
       const country = this.$route.params.country;
-      this.getCountryDetails(country);
+      if (country){
+        this.getCountryDetails(country);
+      }
+      this.currentCountry = country
+    },
+    // updated(){
+    //   const country = this.$route.params.country;
+    //   console.log("country", country)
+    //   console.log("This is the current country", this.currentCountry)
+    //   if (country !== this.currentCountry){
+    //     this.currentCountry = country
+    //     this.getCountryDetails(country)
+    //   }
+    // },
+    watch: {
+      $route(){
+        const country = this.$route.params.country
+        if (country){
+        this.getCountryDetails(country);
+        }
+      }
     },
     methods: {
       ...mapActions(["getCountryDetails"]),
       goBack() {
-        router.back();
+        router.back()
+      },
+      checkCountryDetails(border) {
+        this.$router.replace({
+          query: {
+            country: border
+          }
+        });
+        this.$router.push(`${border}`);
+        this.getCountryDetails(border)
       }
     },
     components: {
@@ -193,6 +227,7 @@ import NavBar from './NavBar.vue';
     padding: 10px 20px;
     background-color: var(--container-bg-color);
     box-shadow: rgba(0, 0, 0, 0.35) 1.95px 1.95px 2.6px;    margin: 4px;
+    cursor: pointer;
   }
   @media screen and (max-width: 768px) {
     .country__details, .middle{
