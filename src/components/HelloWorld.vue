@@ -119,14 +119,6 @@ import NavBar from './NavBar.vue';
     display: flex;
     align-items: center;
   }
-  /* .search img > path{
-    fill: var(--text-color)
-  } */
-  /* .search img{
-    padding: 15px;
-    background-color: hsl(209, 23%, 22%);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  } */
   .search input, select{
     width: 460px;
     padding: 15px;

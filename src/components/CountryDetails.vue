@@ -1,7 +1,9 @@
 <template>
   <NavBar />
   <button @click="goBack">Back</button>
-  <div class="error" v-if="isError && !isLoading"><h1>Country details not found</h1></div>
+  <div class="error" v-if="isError && !isLoading">
+    <h1>Country details not found</h1>
+  </div>
   <LoadingCircle v-if="isLoading" />
   <div class="country__details__container" v-if="!isLoading && !isError">
     <div class="country__details" v-for="detail in countryDetails" :key="detail">
@@ -39,7 +41,10 @@
           </div>
           <div class="capital__container">
             <b>Capital: </b>
-            <p v-for="capital in detail.capital" :key="capital">{{capital}}</p>
+            <span v-for="(capital, index) in Object.values(detail.capital)" :key="capital">
+              <span class="capital">{{capital}}</span>
+              <span v-if="index != Object.values(detail.capital).length - 1">, </span>
+            </span>
           </div>
         </div>
         <div class="second">
@@ -55,15 +60,17 @@
           </div>
           <div class="languages__container">
             <b>Languages: </b>
-            <p class="languages" v-for="language in detail.languages" :key="language">
-              {{language}}
-            </p>
+            <span class="languages" v-for="(language, index) in Object.values(detail.languages)" :key="language">
+              <span>{{language}}</span>
+              <span v-if="index != Object.values(detail.languages).length - 1">, </span>
+            </span>
           </div>
         </div>
         <div class="third">
           <div class="border__container">
             <b>Border Countries: </b>
-            <p class="border" @click="checkCountryDetails(border)" v-for="border in detail.borders" :key="border">{{border}} {{detail.alpha3Code}}</p>
+            <p class="border" @click="checkCountryDetails(border)" v-for="border in detail.borders" :key="border">
+              {{border}}</p>
           </div>
         </div>
       </div>
@@ -77,7 +84,7 @@
     mapState
   } from 'vuex';
   import LoadingCircle from './LoadingCircle.vue';
-import NavBar from './NavBar.vue';
+  import NavBar from './NavBar.vue';
 
   export default {
     computed: {
@@ -86,7 +93,7 @@ import NavBar from './NavBar.vue';
     mounted() {
       console.log("Mounting")
       const country = this.$route.params.country;
-      if (country){
+      if (country) {
         this.getCountryDetails(country);
       }
     },
@@ -100,10 +107,10 @@ import NavBar from './NavBar.vue';
     //   }
     // },
     watch: {
-      $route(){
+      $route() {
         const country = this.$route.params.country
-        if (country){
-        this.getCountryDetails(country);
+        if (country) {
+          this.getCountryDetails(country);
         }
       }
     },
@@ -123,9 +130,9 @@ import NavBar from './NavBar.vue';
       }
     },
     components: {
-    LoadingCircle,
-    NavBar
-}
+      LoadingCircle,
+      NavBar
+    }
   }
 </script>
 <style scoped>
@@ -197,7 +204,9 @@ import NavBar from './NavBar.vue';
     display: flex;
     flex-wrap: wrap;
   }
-  .first > *, .second > * {
+
+  .first>*,
+  .second>* {
     margin-bottom: 10px;
   }
 
@@ -223,41 +232,52 @@ import NavBar from './NavBar.vue';
   .border {
     padding: 10px 20px;
     background-color: var(--container-bg-color);
-    box-shadow: rgba(0, 0, 0, 0.35) 1.95px 1.95px 2.6px;    margin: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 1.95px 1.95px 2.6px;
+    margin: 4px;
     cursor: pointer;
     -moz-transition: all 0.3s;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
   }
-  .border:hover{
+
+  .border:hover {
     transform: scale(1.1);
   }
-  .error{
+
+  .error {
     width: 100%;
     text-align: center;
     margin-top: 150px;
   }
+
   @media screen and (max-width: 768px) {
-    .country__details, .middle{
+
+    .country__details,
+    .middle {
       flex-direction: column;
     }
-    .country__details__container{
+
+    .country__details__container {
       max-width: 100%;
     }
-    .fg__container img{
+
+    .fg__container img {
       padding: 25px;
       width: 100%;
       height: 300px;
       margin-left: 0;
       margin-right: 0;
     }
-    .middle{
+
+    .middle {
       padding-left: 25px;
     }
-    .border__container{
+
+    .border__container {
       flex-wrap: wrap;
     }
-    .border__container b{
+
+    .border__container b {
       width: 100%;
     }
   }
