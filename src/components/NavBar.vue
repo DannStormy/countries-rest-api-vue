@@ -4,7 +4,8 @@
       <p class="title" @click="goHome">Where in the world?</p>
       <div class="theme" @click="isDark = !isDark">
         <SvgIcon />
-        <p>Dark Mode</p>
+        <p v-if="isDark">Dark Mode</p>
+        <p v-else>Light Mode</p>
       </div>
     </nav>
 
