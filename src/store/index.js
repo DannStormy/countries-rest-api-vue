@@ -7,9 +7,19 @@ export default createStore({
     region: null,
     countryDetails: null,
     isLoading: false,
-    isError: null
+    isError: null,
   },
   getters: {
+    getCountryBorder(state) {
+      const borders = {};
+      const countries = state.allCountries;
+      countries.map(country => {
+        const code = country.cca3;
+        borders[code] = country.name.common
+      })
+      console.log(borders)
+      return borders;
+    }
   },
   mutations: {
     SET_COUNTRIES(state, countries){
@@ -23,6 +33,9 @@ export default createStore({
     },
     SET_ERROR(state, isError){
       state.isError = isError
+    },
+    SET_BORDERS(state, borders){
+      state.borders = borders
     }
   },
   actions: {
@@ -77,7 +90,7 @@ export default createStore({
       }finally{
         commit('SET_LOADING', false)
       }
-    }
+    },
   },
   modules: {
   }

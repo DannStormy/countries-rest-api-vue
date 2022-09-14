@@ -15,29 +15,29 @@
       <div class="middle">
         <div class="first">
           <div class="name__container">
-            <p class="name">
+            <span class="name">
               {{detail.name.common}}
-            </p>
+            </span>
           </div>
           <div class="native__name__container">
-            <p class="native__name">
+            <span class="native__name">
               <b>Native Name: </b> {{Object.values(detail.name.nativeName)[0].common}}
-            </p>
+            </span>
           </div>
           <div class="population__container">
-            <p class="population">
+            <span class="population">
               <b>Population: </b> {{detail.population.toLocaleString("en-US")}}
-            </p>
+            </span>
           </div>
           <div class="region__container">
-            <p class="region">
+            <span class="region">
               <b>Region: </b> {{detail.region}}
-            </p>
+            </span>
           </div>
           <div class="subregion__container">
-            <p class="subregion">
+            <span class="subregion">
               <b>Sub Region: </b> {{detail.subregion}}
-            </p>
+            </span>
           </div>
           <div class="capital__container">
             <b>Capital: </b>
@@ -49,14 +49,14 @@
         </div>
         <div class="second">
           <div class="topld">
-            <p class="top_level_domain">
+            <span class="top_level_domain">
               <b>Top Level domains: </b> {{detail.name.common}}
-            </p>
+            </span>
           </div>
           <div class="currency_container">
-            <p class="currency">
+            <span class="currency">
               <b> Currencies: </b> {{Object.values(detail.currencies)[0].name}}
-            </p>
+            </span>
           </div>
           <div class="languages__container">
             <b>Languages: </b>
@@ -67,10 +67,11 @@
           </div>
         </div>
         <div class="third">
-          <div class="border__container">
+          <div class="border__container" v-if="getCountryBorder">
             <b>Border Countries: </b>
-            <p class="border" @click="checkCountryDetails(border)" v-for="border in detail.borders" :key="border">
-              {{border}}</p>
+              <span class="border" @click="checkCountryDetails(getCountryBorder[border])" v-for="border in detail.borders" :key="border">
+              {{getCountryBorder[border]}}
+              </span>
           </div>
         </div>
       </div>
@@ -81,6 +82,7 @@
   import router from '@/router';
   import {
     mapActions,
+    mapGetters,
     mapState
   } from 'vuex';
   import LoadingCircle from './LoadingCircle.vue';
@@ -88,7 +90,11 @@
 
   export default {
     computed: {
-      ...mapState(["countryDetails", "isLoading", "isError"])
+      ...mapState(['countryDetails', 'isLoading', 'isError']),
+      ...mapGetters(['getCountryBorder'])
+    },
+    created() {
+      this.getAllCountries({});
     },
     mounted() {
       console.log("Mounting")
@@ -97,15 +103,6 @@
         this.getCountryDetails(country);
       }
     },
-    // updated(){
-    //   const country = this.$route.params.country;
-    //   console.log("country", country)
-    //   console.log("This is the current country", this.currentCountry)
-    //   if (country !== this.currentCountry){
-    //     this.currentCountry = country
-    //     this.getCountryDetails(country)
-    //   }
-    // },
     watch: {
       $route() {
         const country = this.$route.params.country
@@ -115,7 +112,7 @@
       }
     },
     methods: {
-      ...mapActions(["getCountryDetails"]),
+      ...mapActions(['getCountryDetails', 'getAllCountries']),
       goBack() {
         router.back()
       },
@@ -152,7 +149,7 @@
     margin-left: auto;
     margin-right: auto;
     color: var(--container-bg-color);
-    margin-top: 80px;
+    margin-top: 40px;
     color: var(--text-color)
   }
 
@@ -167,10 +164,6 @@
     margin-bottom: 50px;
   }
 
-  /* .capital__container, .border__container {
-    display: flex;
-    flex-wrap: wrap;
-  } */
   .languages__container,
   .capital__container {
     display: flex;

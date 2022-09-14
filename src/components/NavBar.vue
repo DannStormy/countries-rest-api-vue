@@ -31,7 +31,11 @@ export default {
             else {
                 this.body.classList.remove("dark");
             }
+            localStorage.setItem('theme', value);
         }
+    },
+    created() {
+      this.isDark = JSON.parse(localStorage.getItem('theme'));
     },
     components: { SvgIcon }
 }

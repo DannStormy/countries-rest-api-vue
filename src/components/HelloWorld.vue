@@ -13,6 +13,8 @@
         <option value="North America">North America</option>
         <option value="South America">South America</option>
         <option value="Asia">Asia</option>
+        <!-- <option value="oceania">oceania</option>
+        <option value="Antarctica">Antarctica</option> -->
       </select>
     </div>
   </div>

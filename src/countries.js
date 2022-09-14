@@ -14,4 +14,8 @@ function searchCountry(country) {
   return axios.get(`${url}name/${country}`);
 }
 
-export {searchAll, searchContinent, searchCountry}
+function getBorders(border) {
+  return axios.get(`${url}alpha/${border}`);
+}
+
+export {searchAll, searchContinent, searchCountry, getBorders}
