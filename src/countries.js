@@ -7,11 +7,12 @@ function searchAll() {
 }
 
 function searchContinent(region) {
-  return axios.get(`${url}subregion/${region}`);
+  return axios.get(`${url}region/${region}`);
 }
 
-function searchCountry(country) {
-  return axios.get(`${url}name/${country}`);
+function searchCountry(country, fullText = false) {
+  const searchFull = fullText ? "fullText=true" : "";
+  return axios.get(`${url}name/${country}${searchFull}`);
 }
 
 function getBorders(border) {

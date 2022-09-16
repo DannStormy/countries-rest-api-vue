@@ -8,13 +8,12 @@
     <div class="select__menu">
       <select v-model="selected">
         <option disabled value="">Filter by region</option>
-        <option value="Europe">Europe</option>
         <option value="Africa">Africa</option>
+        <option value="Asia">Asia</option>
+        <option value="Europe">Europe</option>
         <option value="North America">North America</option>
         <option value="South America">South America</option>
-        <option value="Asia">Asia</option>
-        <!-- <option value="oceania">oceania</option>
-        <option value="Antarctica">Antarctica</option> -->
+        <option value="Oceania">Oceania</option>
       </select>
     </div>
   </div>
@@ -71,6 +70,7 @@ import NavBar from './NavBar.vue';
         if (selected) {
           this.getRegion(selected);
         }
+
       },
       checkCountryDetails(country) {
         this.$router.replace({
@@ -87,6 +87,7 @@ import NavBar from './NavBar.vue';
     watch: {
       selected() {
         this.getRegion(this.selected);
+        this.$router.replace({query: {region: this.selected}})
       },
       country() {
         this.searchCountry(this.country);
@@ -94,7 +95,7 @@ import NavBar from './NavBar.vue';
     },
     mounted() {
       this.getAllCountries();
-      // this.$router.replace({query : {country: "all"}})
+      this.$router.replace({query : {country: "all"}})
     },
     components: {
     LoadingCircle,
@@ -115,6 +116,9 @@ import NavBar from './NavBar.vue';
     position: sticky;
     z-index: 1;
     top: 30px;
+  }
+  select {
+    cursor: pointer;
   }
 
   .search{
@@ -185,6 +189,7 @@ import NavBar from './NavBar.vue';
   .capital__container {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 5px;
   }
 
