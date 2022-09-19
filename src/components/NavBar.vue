@@ -60,7 +60,7 @@ export default {
     transition: all 0.3s;
   }
   .title:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   .theme {
     cursor: pointer;

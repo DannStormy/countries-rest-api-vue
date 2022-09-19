@@ -175,7 +175,7 @@ import NavBar from './NavBar.vue';
 
   .flag__container img:hover {
     border-radius: 5px;
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 
   .country__info {

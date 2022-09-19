@@ -3,7 +3,7 @@ import { searchContinent, searchAll, searchCountry } from '@/countries'
 
 export default createStore({
   state: {
-    allCountries: [],
+    allCountries: null,
     region: null,
     countryDetails: null,
     isLoading: false,
@@ -45,7 +45,6 @@ export default createStore({
         const response = await searchContinent(region)
         const data = response.data
         commit('SET_COUNTRIES', data)
-        console.log(data)
       }catch(err){
         console.log(err)
       }finally{

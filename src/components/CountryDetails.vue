@@ -50,7 +50,7 @@
         <div class="second">
           <div class="topld">
             <span class="top_level_domain">
-              <b>Top Level domains: </b> {{detail.name.common}}
+              <b>Top Level domains: </b> {{detail.tld[0]}}
             </span>
           </div>
           <div class="currency_container">
@@ -67,11 +67,15 @@
           </div>
         </div>
         <div class="third">
-          <div class="border__container" v-if="getCountryBorder">
+          <div class="border__container" v-if="detail.borders">
             <b>Border Countries: </b>
               <span class="border" @click="checkCountryDetails(getCountryBorder[border])" v-for="border in detail.borders" :key="border">
               {{getCountryBorder[border]}}
               </span>
+          </div>
+          <div class="border__container" v-else>
+            <b>Border Countries: </b>
+            <spam class="border">No Borders</spam>
           </div>
         </div>
       </div>
